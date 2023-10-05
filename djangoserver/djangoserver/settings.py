@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     "busapp",
+    "maps",
     "django_bootstrap5",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -41,7 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 
 ]
-
+TMAP_APP_KEY = 'TjRtNezMbM6nrEcIBw1vGdEk5QyPn91oQMGiJ4a0'
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -114,13 +115,28 @@ USE_I18N = True
 
 USE_TZ = False
 
+TEMPLATES_DIRS = (
+os.path.join(BASE_DIR, "templates"),
+)
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "/static/"
+STATIC_ROOT = "/static/"
+# STATIC_ROOT = os.path.join(BASE_DIR, 'collectstatic')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_CREDENTIALS = True
+#CORS_ORIGIN_WHITELIST = [
+ #   "http://127.0.0.1:8000"
+#]
