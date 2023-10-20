@@ -9,13 +9,18 @@ def navigation(request):
 
     #시각장애인을 위한 음성지도 제작에 관한 연구 - 국토지리학회에서 말하길 시각장애인의 보행 속도는 1m/1s 이다
     # 일반인의 보행 속도는 4km/시 = 4000m / 3600s = 1.1m/s 이므로 예상 도착 시간 x 1.11
-
-    data = {
-        "destination_lat": request.GET['destination_lat'],
-        "destination_lon": request.GET['destination_lon'],
-        "destination_name": str(request.GET['destination_name'])
-    }
-
+    try:
+        data = {
+            "destination_lat": request.GET['destination_lat'],
+            "destination_lon": request.GET['destination_lon'],
+            "destination_name": str(request.GET['destination_name'])
+        }
+    except:
+        data = {
+            "destination_lat": 0,
+            "destination_lon": 0,
+            "destination_name": "TEST"
+        }
     return render(request, 'maps/navigation.html', data)
 
 
