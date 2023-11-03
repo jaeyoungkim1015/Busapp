@@ -60,7 +60,7 @@
                 && currentLongitudeX ==document.getElementById("destination_lon").value )
                 {
                     if(confirm("목적지에 도달했습니다. 도착 예정 버스 화면으로 이동하시겠습니까?")){
-                        //호원고등학교입구(마을)[버스정류장]
+                        //[버스정류장]
                         location.href='/busstop/search/?keyword='+document.getElementById("destination_name").value.replace("학교입구(마을)[버스정류장]","")
                     }
                 }
@@ -102,7 +102,7 @@
                         first_things_to_do += "하세요."
 
                         if (resultData[1].properties.description.includes("횡단보도")) {
-                            first_things_to_do += "횡단보도구간입니다.  안전에 유의해주세요."
+                            first_things_to_do += "횡단보도구간입니다. 안전에 유의해주세요."
                         }
                     }
                     var first_road_name = resultData[1].properties.name;

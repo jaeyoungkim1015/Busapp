@@ -9,6 +9,7 @@ def navigation(request):
 
     #시각장애인을 위한 음성지도 제작에 관한 연구 - 국토지리학회에서 말하길 시각장애인의 보행 속도는 1m/1s 이다
     # 일반인의 보행 속도는 4km/시 = 4000m / 3600s = 1.1m/s 이므로 예상 도착 시간 x 1.11
+
     try:
         data = {
             "destination_lat": request.GET['destination_lat'],

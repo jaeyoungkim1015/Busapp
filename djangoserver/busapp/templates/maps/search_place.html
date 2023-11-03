@@ -95,6 +95,7 @@
 
                                 // 결과창에 나타날 검색 결과 html
                                 innerHtml += "<li>" +
+                                    "<div style='font-size: 15px; font-weight: bold ; line-height: 15px; color : white'>"+
                                     "<div><img src='http://tmapapis.sktelecom.com/upload/tmap/marker/pin_b_m_" + k + ".png' style='vertical-align:middle;'/>" + "" +
                                     "<span ondbclick='gotoNavigation("
                                     + "\""
@@ -109,9 +110,6 @@
                                 // 마커들을 담을 배열에 마커 저장
                                 markerArr.push(marker);
                                 positionBounds.extend(markerPosition); // LatLngBounds의 객체 확장
-
-
-                                // 버스 아이디 받아오기
 
 
                             }

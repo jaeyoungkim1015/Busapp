@@ -208,8 +208,7 @@
     <div class="container place-search-result-container">
         <div class="top-background"
 
-             style="
-                     background-image: url({% static 'img/마스크 그룹 5@2x.png' %})">
+             style="background-color: black">
             <div class="input_box">
                 <input onclick=" clickHandle(this,'search')"
                        placeholder="'배화여자대학교 정류장'검색결과"
@@ -269,7 +268,7 @@
                 url: "http://openapi.gbis.go.kr/ws/rest/busstationservice?serviceKey=1234567890&keyword=" + destName, // url 주소
                 async: false, // 동기설정
                 data: { // 요청 데이터 정보
-                    "serviceKey": "1234567890", // 발급받은 Appkey
+                    "serviceKey": "TjRtNezMbM6nrEcIBw1vGdEk5QyPn91oQMGiJ4a0", // 발급받은 Appkey
                     "keyword": destName, // 검색 키워드
                 },
                 success: function (response) {
