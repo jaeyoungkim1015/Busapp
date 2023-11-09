@@ -2,100 +2,116 @@
 
 {% load static %}
 {% block content %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<div class="container" style="
-    display: flex;
-    background: #000000 0% 0% no-repeat padding-box;
-    flex-direction: column;
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    height: 100vh;
-    padding-left: 30px;
-    padding-right: 30px;
+    <div class="container place-search-result-container">
+        <div class="top-background"
+             style="
+                     background-image: url({% static 'img/마스크 그룹 5@2x.png' %})">
 
+            <div class="bus-stop-info">
+                <img style="width: 45px;
+height: 27px;" src="{% static 'img/버스정류장아이콘@2x.png' %}" alt="검색 버튼">
+                <button style="padding-left: 0px" onclick="clickHandle(this,'')"
+                >{{ busstop }} 버스도착정보
+                <audio src="#" class="speech" hidden></audio></button>
+            </div>
 
-
-
-">
-<style>
-            input::placeholder {
-                color: white;
-
-            }
-        </style>
-        <div style="font: normal normal bold 24px/29px Noto Sans CJK KR;color: white;
-        margin-top: 61px;">버스 정류장을 입력하세요 <img src="{% static 'img/타원 31.svg' %}" alt="온점">
-        </div>
-        <div style="font: normal normal normal 14px/17px Noto Sans CJK KR;
-        color: white; margin-top: 15px; margin-bottom: 81px">
-            키보드 또는 음성으로 목적지를 검색하세요.
-        </div>
-        <div class="" style="display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 300px;
-        height: 43px;
-        border: 2px solid var(--unnamed-color-ffffff);
-        border: 2px solid #FFFFFF;
-        border-radius: 30px;">
-            <input
-                    placeholder="키보드로 검색"
-                    type="search"
-                    style="background-color: transparent;
-                    border: none;
-                    color: white;
-                    padding-left: 20px;
-                    font-size: 17px; "
-
-                    class="text_custom form-control" id="searchKeyword" name="searchKeyword"/>
-
-            <button id="btn_select"
-                    style="background-color: transparent;
-                    border: none;"
-                    class=""><img src="{% static 'img/검색.svg' %}" alt="검색 버튼"><audio src="#" class="speech" hidden></audio></button>
-        </div>
-        <div class="voice-search" style="margin-top: 24px;
-            /* width: 100%; */
-        margin: 24px auto;
-         display: flex;
-        justify-content: center;">
-            <img style="width: 90px;
-            height: 90px;" src="{% static 'img/그룹 125@2x.png' %}" alt="음성검색">
         </div>
 
-        <div>
-            <div style="width: 100%; float:left;">
 
-                <div class="rst_wrap">
-                    <div class="rst mCustomScrollbar">
-                        <ul id="searchResult" name="searchResult">
+        <div class="bus-feead-container">
+            <button class="help-text " onclick="clickHandle(this,'refresh')">
+                탭하여 업데이트 해주세요
+            <audio src="#" class="speech" hidden></audio></button>
+            <div class="rst_wrap" style="overflow-y: auto;height: 390px;">
+                <div class="rst mCustomScrollbar" id="searchResult">       {% if data_list %}
+                    {% for data in data_list %}
+                        <button class="search_result shadow"
+                                onclick="clickHandle(this,'refresh')"
+                                class="busstop-item alert alert-info" role="alert">
+                            <div class="left">
+                                <img style="width: 43px;
+height: 43px;" src="{% static 'img/버스도착정보@2x.png' %}" alt="버스정류장 태그">
+                            </div>
+                            <div class="center">
+                                {{ data.0 }}번
+                            </div>
+                            <div class="right">
+                                {{ data.1 }}분후
+                            </div>
+                        <audio src="#" class="speech" hidden></audio></button>
 
-                        </ul>
-                    </div>
+
+                    {% endfor %}
+                {% else %}
+                    <button onclick="clickHandle(this,'')" style="    width: 300px;
+    height: 60px;">
+                        도착예정 버스가 없습니다.
+                    <audio src="#" class="speech" hidden></audio></button>
+                {% endif %}
                 </div>
             </div>
-            <div id="bus_div" class="bus_wrap" style="float:left"></div>
         </div>
+        <div id="map_div" class="map_wrap" style="float:left"></div>
     </div>
-    <div class="round"
-         style="    width: 43px;
-    height: 43px;
-    /* margin: auto; */
-    bottom: 20px;
-    /* margin: auto; */
-    z-index: 99999;
-    /* right: 40vw; */
-    left: 159px;
-    position: fixed;">
-        <img src="{% static 'img/메뉴.svg' %}" alt="메뉴">
+    </div>
+    <button class="roundMenuBtn" id="menuBtn" onclick="clickHandle(this,'menu')"
+            style="      background-image: url({% static 'img/메뉴.svg' %}); ">
 
-    </div>
+
+    <audio src="#" class="speech" hidden></audio></button>
+
+    <style>
+        button {
+            background-color: transparent !important;
+            border: none;
+        }
+
+        button:hover, button:focus {
+            box-shadow: 0px 3px 6px #00000029;
+            border: 2px solid #295FFF;
+        }
+    </style>
     <script>
-        window.onload = () => {
-            initTmap();
+        function clickHandle(obj, place) {
+            var $this = $(obj);
+            if ($this.hasClass('clicked')) {
+                if (place == "") {
+                } else if (place == "refresh") {
+                    window.location.reload();
+                } else if (place == "menu") {
+                    goto('/')
+                } else {
+                    goto(place)
+                }
+
+                //here is your code for double click
+                //  return;a
+            } else {
+                $this.addClass('clicked');
+                if (place == "menu") {
+                    var utterThis = new SpeechSynthesisUtterance("홈으로");
+                     utterThis.lang= 'ko-KR';
+                    var synth = window.speechSynthesis;
+                    synth.speak(utterThis);
+                } else {
+                    speechUpdate(obj)
+                }
+
+
+                //your code for single click
+                setTimeout(function () {
+                    $this.removeClass('clicked');
+                }, 500);
+            }//end of else
+        }
+
+        function speechUpdate(obj) {
+            //one click
+            var is = true;
+     speechText(obj,obj.innerText.replace("-", "다시").replace("번", "번 버스는 ").replace("분후", "분 후 도착예정입니다."));
+            return is;
         }
     </script>
 {% endblock %}
