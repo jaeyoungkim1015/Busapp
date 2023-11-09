@@ -2,7 +2,48 @@
 
 {% load static %}
 {% block content %}
+    <script>
+        function clickHandle(obj, place) {
+            var $this = $(obj);
+            if ($this.hasClass('clicked')) {
+                if (place == "") {
 
+                } else if (place == "submit") {
+                    $('form').submit()
+                } else if (place == "menu") {
+                    goto('/')
+                } else if (place == "search") {
+
+                } else {
+                    goto(place)
+                }
+
+                //here is your code for double click
+                //  return;a
+            } else {
+                $this.addClass('clicked');
+
+                if (place == "menu") {
+                    var utterThis = new SpeechSynthesisUtterance("홈으로");
+                    utterThis.lang= 'ko-KR';
+                    var synth = window.speechSynthesis;
+                    synth.speak(utterThis);
+                } else if (place == "search") {
+                    var utterThis = new SpeechSynthesisUtterance("검색창");
+                    var synth = window.speechSynthesis;
+                     utterThis.lang= 'ko-KR';
+                    synth.speak(utterThis);
+                } else {
+                    speech(obj)
+                }
+
+                //your code for single click
+                setTimeout(function () {
+                    $this.removeClass('clicked');
+                }, 500);
+            }//end of else
+        }
+    </script>
     <div class="container place-search-result-container">
         <div
 
@@ -90,46 +131,5 @@
         }
     </style>
 
-    <script>
-        function clickHandle(obj, place) {
-            var $this = $(obj);
-            if ($this.hasClass('clicked')) {
-                if (place == "") {
 
-                } else if (place == "submit") {
-                    $('form').submit()
-                } else if (place == "menu") {
-                    goto('/')
-                } else if (place == "search") {
-
-                } else {
-                    goto(place)
-                }
-
-                //here is your code for double click
-                //  return;a
-            } else {
-                $this.addClass('clicked');
-
-                if (place == "menu") {
-                    var utterThis = new SpeechSynthesisUtterance("홈으로");
-                    utterThis.lang= 'ko-KR';
-                    var synth = window.speechSynthesis;
-                    synth.speak(utterThis);
-                } else if (place == "search") {
-                    var utterThis = new SpeechSynthesisUtterance("검색창");
-                    var synth = window.speechSynthesis;
-                     utterThis.lang= 'ko-KR';
-                    synth.speak(utterThis);
-                } else {
-                    speech(obj)
-                }
-
-                //your code for single click
-                setTimeout(function () {
-                    $this.removeClass('clicked');
-                }, 500);
-            }//end of else
-        }
-    </script>
 {% endblock %}
